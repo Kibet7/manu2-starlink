@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starlink Premium | Service.starlink.ke</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@500;600&display=swap');
+        
+        :root {
+            --primary-blue: #1A56DB;
+            --secondary-blue: #3B82F6;
+            --accent-purple: #8B5CF6;
+            --dark-blue: #1E3A8A;
+            --light-blue: #60A5FA;
+            --accent-yellow: #FBBF24;
+            --black: #111827;
+            --white: #FFFFFF;
+            --gradient: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            --accent-gradient: linear-gradient(135deg, var(--accent-yellow), #F59E0B);
+            --dark-gradient: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--gradient);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--white);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Background Pattern */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(26, 86, 219, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 60%, rgba(139, 92, 246, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 80%, rgba(251, 191, 36, 0.05) 0%, transparent 20%);
+            z-index: -1;
+        }
+        
+        /* Starlink Satellite Train Animation */
+        .satellite-train {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .satellite {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px rgba(26, 86, 219, 0.8);
+            animation: flyAcross 20s linear infinite;
+            opacity: 0.9;
+        }
+        
+        .satellite::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: var(--accent-yellow);
+            border-radius: 50%;
+        }
+        
+        .satellite::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+        }
+        
+        /* Create multiple satellites with different delays */
+        .satellite:nth-child(1) {
+            top: 10px;
+            animation-delay: 0s;
+            width: 24px;
+            height: 24px;
+        }
+        
+        .satellite:nth-child(2) {
+            top: 40px;
+            animation-delay: 2s;
+        }
+        
+        .satellite:nth-child(3) {
+            top: 25px;
+            animation-delay: 4s;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .satellite:nth-child(4) {
+            top: 5px;
+            animation-delay: 6s;
+            width: 16px;
+            height: 16px;
+        }
+        
+        .satellite:nth-child(5) {
+            top: 35px;
+            animation-delay: 8s;
+            width: 22px;
+            height: 22px;
+        }
+        
+        @keyframes flyAcross {
+            0% {
+                left: -50px;
+                transform: translateY(0);
+            }
+            25% {
+                transform: translateY(3px);
+            }
+            50% {
+                transform: translateY(0);
+            }
+            75% {
+                transform: translateY(-3px);
+            }
+            100% {
+                left: 100%;
+                transform: translateY(0);
+            }
+        }
+        
+        .premium-container {
+            background: var(--glass-bg);
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 620px;
+            width: 90%;
+            color: var(--white);
+            margin: 20px 0;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .premium-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 86, 219, 0.1), rgba(139, 92, 246, 0.1));
+            z-index: -1;
+        }
+        
+        .premium-header {
+            position: relative;
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+        }
+        
+        .premium-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent-yellow), var(--light-blue), transparent);
+            border-radius: 4px;
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            margin: 0;
+            color: var(--white);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .service-badge {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: var(--dark-gradient);
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 6px 15px rgba(26, 86, 219, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .package-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin: 35px 0;
+        }
+        
+        .premium-btn {
+            background: var(--dark-gradient);
+            color: white;
+            border: none;
+            padding: 20px 12px;
+            font-size: 16px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+            position: relative;
+            overflow: hidden;
+            min-height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .premium-btn:nth-child(odd) {
+            background: var(--accent-gradient);
+            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);
+        }
+        
+        .premium-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .premium-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(30, 58, 138, 0.4);
+        }
+        
+        .premium-btn:nth-child(odd):hover {
+            box-shadow: 0 12px 25px rgba(251, 191, 36, 0.4);
+        }
+        
+        .premium-btn:hover::before {
+            left: 100%;
+        }
+        
+        .package-price {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .support-card {
+            margin-top: 35px;
+            padding: 25px;
+            background: var(--glass-bg);
+            border-radius: 18px;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(5px);
+        }
+        
+        .support-title {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .support-email {
+            color: var(--accent-yellow);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: rgba(251, 191, 36, 0.15);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+        
+        .support-email:hover {
+            color: var(--white);
+            text-decoration: none;
+            background: rgba(251, 191, 36, 0.25);
+            transform: translateY(-2px);
+        }
+        
+        /* Premium Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal-content {
+            background: var(--glass-bg);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 520px;
+            width: 90%;
+            color: var(--white);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(15px);
+        }
+        
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent-yellow), var(--primary-blue));
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 28px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+            transition: 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-modal:hover {
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        .modal h2 {
+            margin-top: 0;
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .modal p {
+            font-size: 17px;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+        
+        .instruction-box {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .instruction-box p {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .instruction-box strong {
+            color: var(--accent-yellow);
+            margin-right: 8px;
+            min-width: 20px;
+        }
+        
+        .till-number {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 5px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .copy-btn {
+            background: var(--accent-yellow);
+            color: var(--dark-blue);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-left: 10px;
+            transition: all 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: #fcd34d;
+            transform: translateY(-2px);
+        }
+        
+        .proceed-btn {
+            background: var(--accent-gradient);
+            color: var(--dark-blue);
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);
+            font-size: 18px;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .proceed-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(251, 191, 36, 0.4);
+        }
+        
+        /* Loading overlay */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+        }
+        
+        .spinner {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(243, 243, 243, 0.2);
+            border-top: 8px solid var(--accent-yellow);
+            border-radius: 50%;
+            animation: spin 1.2s linear infinite;
+            margin-bottom: 30px;
+        }
+        
+        .loading-text {
+            color: white;
+            font-size: 20px;
+            margin-top: 10px;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .floating-element {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+            width: 80px;
+            height: 80px;
+        }
+        
+        .floating-element:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .floating-element:nth-child(3) {
+            top: 80%;
+            left: 20%;
+            animation-delay: 4s;
+            width: 70px;
+            height: 70px;
+        }
+        
+        .floating-element:nth-child(4) {
+            top: 30%;
+            left: 85%;
+            animation-delay: 6s;
+            width: 50px;
+            height: 50px;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-20px) rotate(120deg);
+            }
+            66% {
+                transform: translateY(10px) rotate(240deg);
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .package-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .premium-container {
+                padding: 25px 20px;
+            }
+            
+            h1 {
+                font-size: 36px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+            
+            .satellite-train {
+                height: 40px;
+            }
+            
+            .satellite {
+                width: 16px;
+                height: 16px;
+            }
+            
+            .satellite::after {
+                width: 30px;
+            }
+            
+            .modal-content {
+                padding: 30px 25px;
+            }
+            
+            .modal h2 {
+                font-size: 26px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 30px;
+            }
+            
+            .service-badge {
+                font-size: 14px;
+                padding: 8px 20px;
+            }
+            
+            .premium-btn {
+                padding: 18px 10px;
+                font-size: 15px;
+            }
+            
+            .package-price {
+                font-size: 18px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Background Pattern -->
+    <div class="bg-pattern"></div>
+    
+    <!-- Floating Elements -->
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+    
+    <!-- Starlink Satellite Train Animation -->
+    <div class="satellite-train">
+        <div class="satellite"></div>
+        <div class="satellite"></div>
+        <div class="satellite"></div>
+        <div class="satellite"></div>
+        <div class="satellite"></div>
+    </div>
+    
+    <div class="premium-container">
+        <div class="premium-header">
+            <h1>Starlink Premium</h1>
+            <div class="subtitle">High-Speed Satellite Internet</div>
+            <div class="service-badge">Exclusive Packages</div>
+        </div>
+        
+        <div class="package-grid">
+            <button class="premium-btn" onclick="showPaymentModal('24 Hours - 7GB', '6394144', '69')">
+                24 Hours<br>7GB
+                <div class="package-price">Ksh 69</div>
+            </button>
+            <button class="premium-btn" onclick="showPaymentModal('7 Days - 12GB', '6394144', '79')">
+                7 Days<br>12GB
+                <div class="package-price">Ksh 79</div>
+            </button>
+            <button class="premium-btn" onclick="showPaymentModal('14 Days - 22GB', '6394144', '100')">
+                14 Days<br>22GB
+                <div class="package-price">Ksh 100</div>
+            </button>
+            <button class="premium-btn" onclick="showPaymentModal('21 Days - 35GB', '6394144', '120')">
+                21 Days<br>35GB
+                <div class="package-price">Ksh 120</div>
+            </button>
+            <button class="premium-btn" onclick="showPaymentModal('30 Days - 50GB', '6394144', '149')">
+                30 Days<br>50GB
+                <div class="package-price">Ksh 149</div>
+            </button>
+            <button class="premium-btn" onclick="showPaymentModal('2 Months - Unlimited', '6394144', '210')">
+                2 Months<br>Unlimited
+                <div class="package-price">Ksh 210</div>
+            </button>
+        </div>
+        
+        <div class="support-card">
+            <div class="support-title">Premium Support Available 24/7</div>
+            <a href="mailto:starlinkhelp01@gmail.com" class="support-email">
+                <i class="fas fa-envelope"></i> email us
+            </a>
+        </div>
+    </div>
+
+    <!-- Premium Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2>Confirm Package</h2>
+            <p>You've selected our premium package:</p>
+            <p><strong id="selectedPackage" style="color: var(--accent-yellow); font-size: 20px;"></strong></p>
+            <p>Please follow these M-Pesa payment instructions:</p>
+            <div class="instruction-box">
+                <p><strong>1.</strong> Go to M-Pesa on your phone</p>
+                <p><strong>2.</strong> Select <strong>Lipa na M-Pesa</strong></p>
+                <p><strong>3.</strong> Select <strong>Buy Goods</strong></p>
+                <p><strong>4.</strong> Enter Till Number: 
+                    <span id="tillNumber" class="till-number">6394144</span>
+                    <button onclick="copyTillNumber()" class="copy-btn">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </p>
+                <p><strong>5.</strong> Enter the amount: <strong id="packageAmount" style="color: var(--accent-yellow);"></strong></p>
+                <p><strong>6.</strong> Enter your M-Pesa PIN and confirm <b>BMS VENTURES</b></p>
+            </div>
+            <p>Your package will be activated automatically after payment confirmation.</p>
+            <button class="proceed-btn" onclick="processPayment()">
+                <i class="fas fa-check-circle"></i> I've Completed Payment
+            </button>
+        </div>
+    </div>
+    
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <div class="loading-text">Processing your premium package...</div>
+    </div>
+
+    <script>
+        let paymentUrl = '';
+        
+        function showPaymentModal(packageName, tillNumber, amount) {
+            document.getElementById('selectedPackage').textContent = packageName;
+            document.getElementById('tillNumber').textContent = tillNumber;
+            document.getElementById('packageAmount').textContent = 'Ksh ' + amount;
+            document.getElementById('paymentModal').style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+        
+        function copyTillNumber() {
+            const tillNumber = document.getElementById('tillNumber').textContent;
+            navigator.clipboard.writeText(tillNumber).then(() => {
+                // Show a subtle notification instead of alert
+                const copyBtn = document.querySelector('.copy-btn');
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy till number. Please copy manually: ' + tillNumber);
+            });
+        }
+        
+        function processPayment() {
+            // Show loading overlay
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            
+            // Simulate processing delay
+            setTimeout(() => {
+                // Hide loading overlay
+                document.getElementById('loadingOverlay').style.display = 'none';
+                
+                // Close modal
+                closeModal();
+                
+                // Show success message
+                alert('Payment received! Your Starlink package is being activated. You will receive a confirmation SMS shortly.');
+            }, 3000);
+        }
+        
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('paymentModal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
